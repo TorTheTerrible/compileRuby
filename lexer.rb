@@ -11,15 +11,12 @@ def createTokens(path)
 
 		if t == "int"
 			tokens.append("keyword")
-			tokens.append("int")
 
 		elsif t == "+"
 			tokens.append("opperator")
-			tokens.append("addition")
 
 		elsif t == "="
 			tokens.append("operator")
-			tokens.append("equals")
 
 		elsif t == "("
 			tokens.append("open-paren")
@@ -41,10 +38,9 @@ def createTokens(path)
 
 		elsif "1234567890".include?(t)
 			tokens.append("int-literal")
-			tokens.append(t)
 
 		elsif t == ";"
-			tokens.append("semi-colon")
+			tokens.append("semicolon")
 
 		else
 			tokens.append("var")
