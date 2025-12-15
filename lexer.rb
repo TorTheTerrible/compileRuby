@@ -1,9 +1,14 @@
-def createTokens(path)
+def readfile(path)
 	file = File.open(path)
 	input = file.read
 	file.close
 	#input = input.gsub(/(){}[]+-;/, ' \0')
 	contents = input.split(" ")
+	return contents
+end
+
+def createTokens(path)
+	contents = readfile(path)
 	tokens = []
 
 	for i in 0...contents.length
@@ -44,7 +49,6 @@ def createTokens(path)
 
 		else
 			tokens.append("var")
-			tokens.append(t)
 		end
 	end
 	return tokens
