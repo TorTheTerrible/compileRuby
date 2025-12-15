@@ -12,21 +12,40 @@ def createTokens(path)
 		if t == "int"
 			tokens.append("keyword")
 			tokens.append("int")
+
 		elsif t == "+"
 			tokens.append("opperator")
 			tokens.append("addition")
+
 		elsif t == "="
 			tokens.append("operator")
 			tokens.append("equals")
+
 		elsif t == "("
 			tokens.append("open-paren")
+
 		elsif t == ")"
 			tokens.append("closed-paren") 
+
+		elsif t == "{"
+			tokens.append("open-bracket")
+
+		elsif t == "}"
+			tokens.append("closed-bracket")
+
+		elsif t == "["	
+			tokens.append("open-brace")
+
+		elsif t == "]"
+			tokens.append("closed-brace")
+
 		elsif "1234567890".include?(t)
 			tokens.append("int-literal")
 			tokens.append(t)
+
 		elsif t == ";"
 			tokens.append("semi-colon")
+
 		else
 			tokens.append("var")
 			tokens.append(t)
