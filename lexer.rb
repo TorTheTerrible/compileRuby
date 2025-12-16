@@ -1,8 +1,10 @@
+Token = Struct.new(:type, :value)
+
 def readfile(path)
 	file = File.open(path)
 	input = file.read
 	file.close
-	#input = input.gsub(/(){}[]+-;/, ' \0')
+	input = input.gsub(/(){}+-;/, ' \0')
 	contents = input.split(" ")
 	return contents
 end
@@ -15,40 +17,43 @@ def createTokens(path)
 		t = contents[i]
 
 		if t == "int"
-			tokens.append("keyword")
+			tokens.append(Token.new(:keyword, "int"))
 
 		elsif t == "+"
-			tokens.append("opperator")
+			tokens.append(Token.new(:operator, "+"))
 
 		elsif t == "="
-			tokens.append("operator")
+			tokens.append(Token.new(:operator, "="))
 
 		elsif t == "("
-			tokens.append("open-paren")
+			tokens.append(Token.new(:paren, "("))
 
 		elsif t == ")"
-			tokens.append("closed-paren") 
+			tokens.append(Token.new(:paren, ")"))
 
 		elsif t == "{"
-			tokens.append("open-bracket")
+			tokens.append(Token.new(:bracket, "{"))
 
 		elsif t == "}"
-			tokens.append("closed-bracket")
+			tokens.append(Token.new(:bracket, "}"))
 
 		elsif t == "["	
-			tokens.append("open-brace")
+			tokens.append(Token.new(:brace, "["))
 
 		elsif t == "]"
-			tokens.append("closed-brace")
+			tokens.append(Token.new(:brace, "]"))
 
 		elsif "1234567890".include?(t)
-			tokens.append("int-literal")
+			tokens.append(Token.new(:literal, t))
 
 		elsif t == ";"
-			tokens.append("semicolon")
+			tokens.append(Token.new(:eol, "semicolon"))
+
+		elsif t == "return"
+			tokens.append(Token.new(:return, "return"))
 
 		else
-			tokens.append("var")
+			tokens.append(Token.new(:id, t))
 		end
 	end
 	return tokens
