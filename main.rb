@@ -1,15 +1,14 @@
 require "./lexer.rb"
 
-i = 0
-e = []
+$i = 0
+$e = []
 
 def match(char)
-        if e[i].keyword == :char
-                i += 1
+        if $e[$i].type == char
+                $i += 1
+		puts $e[$i]
                 return
         end
-        puts "error"
-        exit
 end
 
 def program
@@ -17,25 +16,47 @@ def program
 end
 
 def function
-	match(keyword)
-	match(id)
-	match(paren)
-	match(paren)
-	match(bracket)
+	match(:keyword)
+	match(:id)
+	match(:paren)
+	match(:paren)
+	match(:bracket)
 	statment
-	match(bracket)
+	match(:bracket)
+end
+
+def returnValue
+	if match(:ret)
+		expresion
+		match(:eol)
+	end
+end
+
+def opperators
+	if match(:opperator)
+		expresion
+		opperators
+	end
 end
 
 def statment
-	match(ret)
-	expresion
-	match(eol)
+	returnValue
+
+	#arithmatic
+	if match(:char)
+		opperators
+	end
+
+	if match(:bracket)
+		return
+	else
+		statment
+	end
 end
 
 def expresion
-	match(int)
+	match(:literal)
 end
 
-e = createTokens("code.txt")
-puts e
-
+$e = createTokens("code.txt")
+program

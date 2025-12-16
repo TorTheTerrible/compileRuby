@@ -4,7 +4,7 @@ def readfile(path)
 	file = File.open(path)
 	input = file.read
 	file.close
-	input = input.gsub(/(){}+-;/, ' \0')
+	input = input.gsub(/([{()};])/, ' \0').strip
 	contents = input.split(" ")
 	return contents
 end
@@ -50,7 +50,7 @@ def createTokens(path)
 			tokens.append(Token.new(:eol, "semicolon"))
 
 		elsif t == "return"
-			tokens.append(Token.new(:return, "return"))
+			tokens.append(Token.new(:ret, "return"))
 
 		else
 			tokens.append(Token.new(:id, t))
