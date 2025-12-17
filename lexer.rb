@@ -1,12 +1,12 @@
 Token = Struct.new(:type, :value)
 
 def readfile(path)
-	file = File.open(path)
-	input = file.read
-	file.close
-	input = input.gsub(/([{()};])/, ' \0').strip
-	contents = input.split(" ")
-	return contents
+        file = File.open(path)
+        input = file.read
+        file.close
+        input = input.gsub(/([{()};])/, ' \0').strip
+        contents = input.split(' ')
+        return contents
 end
 
 def createTokens(path)
@@ -52,6 +52,8 @@ def createTokens(path)
 		elsif t == "return"
 			tokens.append(Token.new(:ret, "return"))
 
+		elsif t == nil
+			
 		else
 			tokens.append(Token.new(:id, t))
 		end
