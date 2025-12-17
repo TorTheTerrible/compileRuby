@@ -44,7 +44,7 @@ def createTokens(path)
 			tokens.append(Token.new(:brace, "]"))
 
 		elsif "1234567890".include?(t)
-			tokens.append(Token.new(:literal, t))
+			tokens.append(Token.new(:int, t))
 
 		elsif t == ";"
 			tokens.append(Token.new(:eol, "semicolon"))

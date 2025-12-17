@@ -5,24 +5,40 @@ $e = []
 
 def match(char)
         if $e[$i].type == char
-                $i += 1
-		puts $e[$i]
-                return
-        end
+                puts $e[$i]
+		$i += 1
+                return true
+        else
+		#puts "error " + $e[$i].value
+	end
 end
 
 def program
 	function
 end
 
+def bracket
+	if match(:bracket)
+		while !match(:bracket) do
+			statment
+		end
+	end
+end
+
 def function
-	match(:keyword)
-	match(:id)
-	match(:paren)
-	match(:paren)
-	match(:bracket)
-	statment
-	match(:bracket)
+	if match(:keyword)
+		match(:id)
+		match(:paren)
+		match(:paren)
+		bracket
+
+		puts "function parsed"
+		function
+	end
+end
+
+def statment
+	returnValue
 end
 
 def returnValue
@@ -32,30 +48,8 @@ def returnValue
 	end
 end
 
-def opperators
-	if match(:opperator)
-		expresion
-		opperators
-	end
-end
-
-def statment
-	returnValue
-
-	#arithmatic
-	if match(:char)
-		opperators
-	end
-
-	if match(:bracket)
-		return
-	else
-		statment
-	end
-end
-
 def expresion
-	match(:literal)
+	match(:int)
 end
 
 $e = createTokens("code.txt")
